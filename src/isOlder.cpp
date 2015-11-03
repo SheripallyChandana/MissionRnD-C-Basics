@@ -28,41 +28,61 @@ int isDateNotValid(int date, int month, int year){
 
 	if (date > 0 && date <= noOfDays)
 		notValidFlag = 0;
+	if (month > 12 || month < 1)
+		notValidFlag = 1;
 
 	return notValidFlag;
 }
 
 int isOlder(char *dob1, char *dob2) {
 
+
 	int date1 = 0, date2 = 0;
 	int month1 = 0, month2 = 0;
 	int year1 = 0, year2 = 0;
 	int index;
 
-	for (index = 0; dob1[index] != '-'; ++index)
+	for (index = 0; dob1[index] != '-'; ++index){
+		if (dob1[index] < 47 || dob1[index] > 58)
+			return -1;
 		date1 = dob1[index] - 48 + date1 * 10;
-
-	for (++index; dob1[index] != '-'; ++index)
+	}
+	for (++index; dob1[index] != '-'; ++index){
+		if (dob1[index] < 47 || dob1[index] > 58)
+			return -1;
 		month1 = dob1[index] - 48 + month1 * 10;
+	}
 
-	for (++index; dob1[index] != '\0'; ++index)
+	for (++index; dob1[index] != '\0'; ++index){
+		if (dob1[index] < 47 || dob1[index] > 58)
+			return -1;
 		year1 = dob1[index] - 48 + year1 * 10;
+	}
 
-	for (index = 0; dob2[index] != '-'; ++index)
+	for (index = 0; dob2[index] != '-'; ++index){
+		if (dob2[index] < 47 || dob2[index] > 58)
+			return -1;
 		date2 = dob2[index] - 48 + date2 * 10;
+	}
 
-	for (++index; dob2[index] != '-'; ++index)
+	for (++index; dob2[index] != '-'; ++index){
+		if (dob2[index] < 47 || dob2[index] > 58)
+			return -1;
 		month2 = dob2[index] - 48 + month2 * 10;
+	}
 
-	for (++index; dob2[index] != '\0'; ++index)
+	for (++index; dob2[index] != '\0'; ++index){
+		if (dob2[index] < 47 || dob2[index] > 58)
+			return -1;
 		year2 = dob2[index] - 48 + year2 * 10;
+	}
 
 	if (isDateNotValid(date1, month1, year1) || isDateNotValid(date2, month2, year2))
 		return -1;
 
 	if (year1 < year2)
 		return 1;
-	else if (year2 > year1)
+	else if (year1 > year2)
 		return 2;
 	else if (year1 == year2){
 		if (month1 < month2)
